@@ -1,5 +1,6 @@
 namespace ATM_project
 {
+
     internal static class Program
     {
         /// <summary>

@@ -39,7 +39,8 @@
             label2 = new Label();
             textBoxCODE = new TextBox();
             textBoxPIN = new TextBox();
-            button1 = new Button();
+            buttonEnter = new Button();
+            label_message = new Label();
             ((System.ComponentModel.ISupportInitialize)ATM).BeginInit();
             SuspendLayout();
             // 
@@ -61,7 +62,7 @@
             text_on_ATM.Name = "text_on_ATM";
             text_on_ATM.Size = new Size(134, 33);
             text_on_ATM.TabIndex = 2;
-            text_on_ATM.Text = "Welcome!";
+            text_on_ATM.Text = " Welcome!";
             // 
             // frame1_of_ATM
             // 
@@ -119,7 +120,7 @@
             // 
             textBoxCODE.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
             textBoxCODE.Location = new Point(525, 147);
-            textBoxCODE.MaxLength = 12;
+            textBoxCODE.MaxLength = 4;
             textBoxCODE.Name = "textBoxCODE";
             textBoxCODE.Size = new Size(193, 43);
             textBoxCODE.TabIndex = 10;
@@ -134,18 +135,34 @@
             textBoxPIN.PasswordChar = '*';
             textBoxPIN.Size = new Size(193, 43);
             textBoxPIN.TabIndex = 11;
+            textBoxPIN.TextChanged += textBoxPIN_TextChanged;
             // 
-            // button1
+            // buttonEnter
             // 
-            button1.BackColor = Color.Navy;
-            button1.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            button1.ForeColor = Color.Lime;
-            button1.Location = new Point(525, 337);
-            button1.Name = "button1";
-            button1.Size = new Size(193, 54);
-            button1.TabIndex = 12;
-            button1.Text = "Enter";
-            button1.UseVisualStyleBackColor = false;
+            buttonEnter.BackColor = Color.Navy;
+            buttonEnter.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonEnter.ForeColor = Color.Lime;
+            buttonEnter.Location = new Point(525, 337);
+            buttonEnter.Name = "buttonEnter";
+            buttonEnter.Size = new Size(193, 54);
+            buttonEnter.TabIndex = 12;
+            buttonEnter.Text = "Enter";
+            buttonEnter.UseVisualStyleBackColor = false;
+            buttonEnter.Click += buttonEnter_Click;
+            // 
+            // label_message
+            // 
+            label_message.BackColor = Color.FromArgb(255, 192, 192);
+            label_message.BorderStyle = BorderStyle.FixedSingle;
+            label_message.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
+            label_message.ForeColor = Color.Red;
+            label_message.Location = new Point(489, 72);
+            label_message.Name = "label_message";
+            label_message.Size = new Size(271, 43);
+            label_message.TabIndex = 13;
+            label_message.Text = "message";
+            label_message.TextAlign = ContentAlignment.MiddleCenter;
+            label_message.Visible = false;
             // 
             // MainForm
             // 
@@ -153,7 +170,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(782, 453);
-            Controls.Add(button1);
+            Controls.Add(label_message);
+            Controls.Add(buttonEnter);
             Controls.Add(textBoxPIN);
             Controls.Add(textBoxCODE);
             Controls.Add(label2);
@@ -182,6 +200,7 @@
         private Label label2;
         private TextBox textBoxCODE;
         private TextBox textBoxPIN;
-        private Button button1;
+        private Button buttonEnter;
+        private Label label_message;
     }
 }
