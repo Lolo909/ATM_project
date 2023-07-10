@@ -14,7 +14,7 @@ namespace ATM_project
         {
             get { return bankMoney; }
             set { bankMoney = value; }
-        
+
         }
 
         Dictionary<string, string> account = new Dictionary<string, string>();
@@ -28,7 +28,7 @@ namespace ATM_project
         }
 
         string user;
-        
+
         public string User
         {
             get { return user; }
@@ -42,18 +42,13 @@ namespace ATM_project
             get { return codeCard; }
             set { codeCard = value; }
         }
-
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! null?
+      
         public static MainForm mainFormInstance;
-
-        //List<Dictionary<string, Decimal>> listOfAccounts = new List<Dictionary<string, Decimal>>();
-
-        //List<Dictionary<Dictionary<string, Decimal>, string>> listOfAccountsCards =
-        //    new List<Dictionary<Dictionary<string, decimal>, string>>();
+      
         public MainForm()
         {
             InitializeComponent();
-            mainFormInstance= this;
+            mainFormInstance = this;
 
             this.Text = "ATM";
             text_on_ATM.Parent = ATM;
@@ -74,11 +69,7 @@ namespace ATM_project
             //accountCardAmount = new Dictionary<string, Decimal>();
             accountCardAmount.Add("Cod1", (decimal)1500.00);
 
-
-
             //----------------------------------
-
-
 
         }
 
@@ -86,6 +77,7 @@ namespace ATM_project
         {
 
             string error = "ERROR";
+
             bool isCodeInDictionary = accountCardINFO.TryGetValue(textBoxCODE.Text, out error);
 
             if (!isCodeInDictionary)
@@ -115,7 +107,6 @@ namespace ATM_project
             else
             {
                 textBoxPIN.Clear();
-                //MessageBox.Show("Wrong CODE or PIN!");
                 label_message.Text = "Wrong CODE or PIN!";
                 label_message.Visible = true;
             }
@@ -124,6 +115,23 @@ namespace ATM_project
         private void textBoxPIN_TextChanged(object sender, EventArgs e)
         {
             label_message.Visible = false;
+        }
+
+        private void textBoxCODE_TextChanged(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(textBoxCODE.Text, "[^A-Za-z0-9]"))
+            {
+
+                label_message.Text = "Please enter only numbers or letters.";
+
+                textBoxCODE.Text = "";
+
+                label_message.Visible = true;
+            }
+            else
+            {
+                label_message.Visible = false;
+            }
         }
     }
 }

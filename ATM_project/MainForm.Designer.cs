@@ -124,6 +124,7 @@
             textBoxCODE.Name = "textBoxCODE";
             textBoxCODE.Size = new Size(193, 43);
             textBoxCODE.TabIndex = 10;
+            textBoxCODE.TextChanged += textBoxCODE_TextChanged;
             // 
             // textBoxPIN
             // 
@@ -156,9 +157,9 @@
             label_message.BorderStyle = BorderStyle.FixedSingle;
             label_message.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
             label_message.ForeColor = Color.Red;
-            label_message.Location = new Point(489, 72);
+            label_message.Location = new Point(489, 31);
             label_message.Name = "label_message";
-            label_message.Size = new Size(271, 43);
+            label_message.Size = new Size(271, 84);
             label_message.TabIndex = 13;
             label_message.Text = "message";
             label_message.TextAlign = ContentAlignment.MiddleCenter;

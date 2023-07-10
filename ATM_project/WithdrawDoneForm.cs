@@ -21,8 +21,7 @@ namespace ATM_project
             text_on_ATM.BackColor = Color.Transparent;
             this.BackColor = Color.FromArgb(200, 200, 200);
 
-
-            //result_label.Text = WithdrawForm.withdrawFormInstance.ResultFromWithdraw;
+            
             StringBuilder result = new StringBuilder();
             foreach (var item in WithdrawForm.withdrawFormInstance.ResultFromWithdraw)
             {

@@ -18,9 +18,9 @@ namespace ATM_project
 
         public static WithdrawForm withdrawFormInstance;
 
-        Dictionary<decimal, int> resultFromWithdraw = new Dictionary<decimal, int>();
+        Dictionary<int, int> resultFromWithdraw = new Dictionary<int, int>();
 
-        public Dictionary<decimal, int> ResultFromWithdraw
+        public Dictionary<int, int> ResultFromWithdraw
         {
             get { return resultFromWithdraw; }
             set { resultFromWithdraw = value; }
@@ -51,15 +51,11 @@ namespace ATM_project
         private void button_enter_Click(object sender, EventArgs e)
         {            
            
-            decimal inputAmount = (decimal)Int32.Parse(textBoxAmount.Text);
+            int inputAmount = Int32.Parse(textBoxAmount.Text);
 
             if (inputAmount < 10 || inputAmount > 3000 || inputAmount % 10 != 0)
             {
-                
-                //MessageBox.Show("Your amount must be
-                //bigger than 10,
-                //smaller than 3000
-                //and а multiple of ten!");
+                                
                 label_message.Visible = true;
                 label_message.Text = "Your amount must be\r\n" +
                     "bigger than 10,\r\n" +
@@ -70,9 +66,9 @@ namespace ATM_project
             else
             {
                 
-                decimal amountForWithdraw = inputAmount;
+                int amountForWithdraw = inputAmount;
                 
-                decimal[] nominals = {100, 50, 20, 10};
+                int[] nominals = {100, 50, 20, 10};
 
                 //TODO if there is not enough money
                 MainForm mainFormIns = MainForm.mainFormInstance;
@@ -124,7 +120,6 @@ namespace ATM_project
             {
                 
                 label_message.Text = "Please enter only numbers.";
-
 
                 textBoxAmount.Text = "";
 
