@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ATM_project
 {
-    public partial class ChooceForm : Form
+    public partial class WithdrawDoneForm : Form
     {
-        public ChooceForm()
+        public WithdrawDoneForm()
         {
             InitializeComponent();
 
@@ -20,13 +20,15 @@ namespace ATM_project
             text_on_ATM.Parent = ATM;
             text_on_ATM.BackColor = Color.Transparent;
             this.BackColor = Color.FromArgb(200, 200, 200);
-        }
 
-        private void button_withdraw_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            WithdrawForm withdrawForm = new WithdrawForm();
-            withdrawForm.ShowDialog();
+            
+            StringBuilder result = new StringBuilder();
+            foreach (var item in WithdrawForm.withdrawFormInstance.ResultFromWithdraw)
+            {
+                result.Append(item.Key + " - " + item.Value + "\n");
+            }
+
+            result_label.Text = result.ToString();
         }
     }
 }

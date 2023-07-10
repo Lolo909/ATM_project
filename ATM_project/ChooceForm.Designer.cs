@@ -37,10 +37,10 @@
             ATM = new PictureBox();
             label1 = new Label();
             button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
-            button4 = new Button();
-            button5 = new Button();
+            button_withdraw = new Button();
+            button_deposit = new Button();
+            button_transfer = new Button();
+            button_check_your_balance = new Button();
             ((System.ComponentModel.ISupportInitialize)ATM).BeginInit();
             SuspendLayout();
             // 
@@ -120,63 +120,64 @@
             button1.Text = "button1";
             button1.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // button_withdraw
             // 
-            button2.BackColor = Color.Navy;
-            button2.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            button2.ForeColor = Color.Lime;
-            button2.Location = new Point(471, 198);
-            button2.Name = "button2";
-            button2.Size = new Size(251, 54);
-            button2.TabIndex = 16;
-            button2.Text = "withdraw";
-            button2.UseVisualStyleBackColor = false;
+            button_withdraw.BackColor = Color.Navy;
+            button_withdraw.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            button_withdraw.ForeColor = Color.Lime;
+            button_withdraw.Location = new Point(471, 198);
+            button_withdraw.Name = "button_withdraw";
+            button_withdraw.Size = new Size(251, 54);
+            button_withdraw.TabIndex = 16;
+            button_withdraw.Text = "withdraw";
+            button_withdraw.UseVisualStyleBackColor = false;
+            button_withdraw.Click += button_withdraw_Click;
             // 
-            // button3
+            // button_deposit
             // 
-            button3.BackColor = Color.Navy;
-            button3.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            button3.ForeColor = Color.Lime;
-            button3.Location = new Point(471, 273);
-            button3.Name = "button3";
-            button3.Size = new Size(251, 54);
-            button3.TabIndex = 17;
-            button3.Text = "deposit";
-            button3.UseVisualStyleBackColor = false;
+            button_deposit.BackColor = Color.Navy;
+            button_deposit.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            button_deposit.ForeColor = Color.Lime;
+            button_deposit.Location = new Point(471, 273);
+            button_deposit.Name = "button_deposit";
+            button_deposit.Size = new Size(251, 54);
+            button_deposit.TabIndex = 17;
+            button_deposit.Text = "deposit";
+            button_deposit.UseVisualStyleBackColor = false;
             // 
-            // button4
+            // button_transfer
             // 
-            button4.BackColor = Color.Navy;
-            button4.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            button4.ForeColor = Color.Lime;
-            button4.Location = new Point(471, 347);
-            button4.Name = "button4";
-            button4.Size = new Size(251, 54);
-            button4.TabIndex = 18;
-            button4.Text = "transfer";
-            button4.UseVisualStyleBackColor = false;
+            button_transfer.BackColor = Color.Navy;
+            button_transfer.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            button_transfer.ForeColor = Color.Lime;
+            button_transfer.Location = new Point(471, 347);
+            button_transfer.Name = "button_transfer";
+            button_transfer.Size = new Size(251, 54);
+            button_transfer.TabIndex = 18;
+            button_transfer.Text = "transfer";
+            button_transfer.UseVisualStyleBackColor = false;
             // 
-            // button5
+            // button_check_your_balance
             // 
-            button5.BackColor = Color.Navy;
-            button5.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
-            button5.ForeColor = Color.Lime;
-            button5.Location = new Point(471, 128);
-            button5.Name = "button5";
-            button5.Size = new Size(251, 54);
-            button5.TabIndex = 19;
-            button5.Text = "check your balance";
-            button5.UseVisualStyleBackColor = false;
+            button_check_your_balance.BackColor = Color.Navy;
+            button_check_your_balance.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
+            button_check_your_balance.ForeColor = Color.Lime;
+            button_check_your_balance.Location = new Point(471, 128);
+            button_check_your_balance.Name = "button_check_your_balance";
+            button_check_your_balance.Size = new Size(251, 54);
+            button_check_your_balance.TabIndex = 19;
+            button_check_your_balance.Text = "check your balance";
+            button_check_your_balance.UseVisualStyleBackColor = false;
             // 
             // ChooceForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(782, 453);
-            Controls.Add(button5);
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
+            Controls.Add(button_check_your_balance);
+            Controls.Add(button_transfer);
+            Controls.Add(button_deposit);
+            Controls.Add(button_withdraw);
             Controls.Add(label1);
             Controls.Add(frame3_of_ATM);
             Controls.Add(frame4_of_ATM);
@@ -201,9 +202,9 @@
         private PictureBox ATM;
         private Label label1;
         private Button button1;
-        private Button button2;
-        private Button button3;
-        private Button button4;
-        private Button button5;
+        private Button button_withdraw;
+        private Button button_deposit;
+        private Button button_transfer;
+        private Button button_check_your_balance;
     }
 }

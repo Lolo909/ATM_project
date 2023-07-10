@@ -36,10 +36,11 @@
             ATM = new PictureBox();
             pictureBox1 = new PictureBox();
             button3 = new Button();
-            button2 = new Button();
+            button_enter = new Button();
             label1 = new Label();
-            textBoxCODE = new TextBox();
-            button1 = new Button();
+            textBoxAmount = new TextBox();
+            button_go_back = new Button();
+            label_message = new Label();
             ((System.ComponentModel.ISupportInitialize)ATM).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -108,60 +109,78 @@
             button3.Text = "ᐊ GO BACK";
             button3.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // button_enter
             // 
-            button2.BackColor = Color.Navy;
-            button2.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            button2.ForeColor = Color.Lime;
-            button2.Location = new Point(501, 294);
-            button2.Name = "button2";
-            button2.Size = new Size(193, 54);
-            button2.TabIndex = 22;
-            button2.Text = "Enter";
-            button2.UseVisualStyleBackColor = false;
+            button_enter.BackColor = Color.Navy;
+            button_enter.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            button_enter.ForeColor = Color.Lime;
+            button_enter.Location = new Point(501, 294);
+            button_enter.Name = "button_enter";
+            button_enter.Size = new Size(193, 54);
+            button_enter.TabIndex = 22;
+            button_enter.Text = "Enter";
+            button_enter.UseVisualStyleBackColor = false;
+            button_enter.Click += button_enter_Click;
             // 
             // label1
             // 
             label1.BackColor = Color.Navy;
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
             label1.ForeColor = Color.Yellow;
-            label1.Location = new Point(488, 98);
+            label1.Location = new Point(487, 160);
             label1.Name = "label1";
             label1.Size = new Size(217, 49);
             label1.TabIndex = 23;
             label1.Text = "Insert amount:";
             // 
-            // textBoxCODE
+            // textBoxAmount
             // 
-            textBoxCODE.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxCODE.Location = new Point(488, 175);
-            textBoxCODE.MaxLength = 4;
-            textBoxCODE.Name = "textBoxCODE";
-            textBoxCODE.Size = new Size(217, 43);
-            textBoxCODE.TabIndex = 24;
-            textBoxCODE.TextAlign = HorizontalAlignment.Center;
+            textBoxAmount.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
+            textBoxAmount.Location = new Point(487, 212);
+            textBoxAmount.MaxLength = 4;
+            textBoxAmount.Name = "textBoxAmount";
+            textBoxAmount.Size = new Size(217, 43);
+            textBoxAmount.TabIndex = 24;
+            textBoxAmount.TextAlign = HorizontalAlignment.Center;
+            textBoxAmount.TextChanged += textBoxAmount_TextChanged;
             // 
-            // button1
+            // button_go_back
             // 
-            button1.BackColor = Color.Navy;
-            button1.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            button1.ForeColor = Color.Lime;
-            button1.Location = new Point(501, 354);
-            button1.Name = "button1";
-            button1.Size = new Size(193, 54);
-            button1.TabIndex = 25;
-            button1.Text = "ᐊ GO BACK";
-            button1.UseVisualStyleBackColor = false;
+            button_go_back.BackColor = Color.Navy;
+            button_go_back.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            button_go_back.ForeColor = Color.Lime;
+            button_go_back.Location = new Point(501, 354);
+            button_go_back.Name = "button_go_back";
+            button_go_back.Size = new Size(193, 54);
+            button_go_back.TabIndex = 25;
+            button_go_back.Text = "ᐊ GO BACK";
+            button_go_back.UseVisualStyleBackColor = false;
+            button_go_back.Click += button_go_back_Click;
+            // 
+            // label_message
+            // 
+            label_message.BackColor = Color.FromArgb(255, 192, 192);
+            label_message.BorderStyle = BorderStyle.FixedSingle;
+            label_message.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label_message.ForeColor = Color.Red;
+            label_message.Location = new Point(458, 25);
+            label_message.Name = "label_message";
+            label_message.Size = new Size(271, 121);
+            label_message.TabIndex = 26;
+            label_message.Text = "message";
+            label_message.TextAlign = ContentAlignment.MiddleCenter;
+            label_message.Visible = false;
             // 
             // WithdrawForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(782, 453);
-            Controls.Add(button1);
-            Controls.Add(textBoxCODE);
+            Controls.Add(label_message);
+            Controls.Add(button_go_back);
+            Controls.Add(textBoxAmount);
             Controls.Add(label1);
-            Controls.Add(button2);
+            Controls.Add(button_enter);
             Controls.Add(pictureBox1);
             Controls.Add(frame3_of_ATM);
             Controls.Add(frame4_of_ATM);
@@ -186,9 +205,10 @@
         private PictureBox ATM;
         private PictureBox pictureBox1;
         private Button button3;
-        private Button button2;
+        private Button button_enter;
         private Label label1;
-        private TextBox textBoxCODE;
-        private Button button1;
+        private TextBox textBoxAmount;
+        private Button button_go_back;
+        private Label label_message;
     }
 }
