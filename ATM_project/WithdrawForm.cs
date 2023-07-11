@@ -80,30 +80,14 @@ namespace ATM_project
                         mainFormIns.AccountCardAmount[code.Key] = mainFormIns.AccountCardAmount[code.Key] - inputAmount;
                         mainFormIns.BankMoney = mainFormIns.BankMoney - inputAmount;
 
-                        int i = 0;
-                        while(i < 4)
-                        {
-                            if (amountForWithdraw >= nominals[i])
-                            {
-                                amountForWithdraw -= nominals[i];
-                                resultFromWithdraw[nominals[i]] += 1;
 
-                                if (amountForWithdraw == 0)
-                                {                                   
-                                    this.Hide();
-                                    WithdrawDoneForm withdrawDoneForm = new WithdrawDoneForm();
-                                    withdrawDoneForm.ShowDialog();
-                                }
-                               
-                            }
+                        //method 1:
+                        //method1ForWithdrawMoney(amountForWithdraw, nominals);
 
-                            i++;
-                            if(i == 4)
-                            {
-                                i = 0;
-                            }
-                        }
+                        //method 2:
+                        method2ForWithdrawMoney(amountForWithdraw);
 
+                        
                         break;
                     }
                 }
@@ -111,7 +95,62 @@ namespace ATM_project
 
             }
         }
+        private void method1ForWithdrawMoney(int amountForWithdraw, int[] nominals)
+        {
+             int i = 0;
+            while (i < 4)
+            {
+                if (amountForWithdraw >= nominals[i])
+                {
+                    amountForWithdraw -= nominals[i];
+                    resultFromWithdraw[nominals[i]] += 1;
 
+                    if (amountForWithdraw == 0)
+                    {
+                        this.Hide();
+                        WithdrawDoneForm withdrawDoneForm = new WithdrawDoneForm();
+                        withdrawDoneForm.ShowDialog();
+                    }
+
+                }
+
+                i++;
+                if (i == 4)
+                {
+                    i = 0;
+                }
+            }
+        }
+
+        private void method2ForWithdrawMoney(int amountForWithdraw)
+        {
+            while (amountForWithdraw != 0)
+            {
+                if (amountForWithdraw >= 100)
+                {
+                    amountForWithdraw -= 100;
+                    resultFromWithdraw[100] += 1;
+                }
+                else if (amountForWithdraw >= 50)
+                {
+                    amountForWithdraw -= 50;
+                    resultFromWithdraw[50] += 1;
+                }
+                else if (amountForWithdraw >= 20)
+                {
+                    amountForWithdraw -= 20;
+                    resultFromWithdraw[20] += 1;
+                }
+                else
+                {
+                    amountForWithdraw -= 10;
+                    resultFromWithdraw[10] += 1;
+                }
+            }
+            this.Hide();
+            WithdrawDoneForm withdrawDoneForm = new WithdrawDoneForm();
+            withdrawDoneForm.ShowDialog();
+        }
         private void textBoxAmount_TextChanged(object sender, EventArgs e)
         {
             
