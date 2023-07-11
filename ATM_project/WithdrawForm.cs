@@ -18,6 +18,8 @@ namespace ATM_project
 
         public static WithdrawForm withdrawFormInstance;
 
+        private static int[] nominals = { 100, 50, 20, 10 };
+
         Dictionary<int, int> resultFromWithdraw = new Dictionary<int, int>();
 
         public Dictionary<int, int> ResultFromWithdraw
@@ -66,9 +68,7 @@ namespace ATM_project
             else
             {
                 
-                int amountForWithdraw = inputAmount;
-                
-                int[] nominals = {100, 50, 20, 10};
+                int amountForWithdraw = inputAmount;                                
 
                 //TODO if there is not enough money
                 MainForm mainFormIns = MainForm.mainFormInstance;
@@ -82,10 +82,10 @@ namespace ATM_project
 
 
                         //method 1:
-                        //method1ForWithdrawMoney(amountForWithdraw, nominals);
+                        balancedWithdrawMoney(amountForWithdraw);
 
                         //method 2:
-                        method2ForWithdrawMoney(amountForWithdraw);
+                        //fromLargestToSmallestWithdrawMoney(amountForWithdraw);
 
                         
                         break;
@@ -95,7 +95,9 @@ namespace ATM_project
 
             }
         }
-        private void method1ForWithdrawMoney(int amountForWithdraw, int[] nominals)
+        //Method which withdraw the amount in balanced way.
+        //i.e. You will get your sum divided by all denominations.
+        private void balancedWithdrawMoney(int amountForWithdraw)
         {
              int i = 0;
             while (i < 4)
@@ -122,35 +124,29 @@ namespace ATM_project
             }
         }
 
-        private void method2ForWithdrawMoney(int amountForWithdraw)
+        //Method which withdraw the amount in descending way.
+        //i.e. You will get your amount divided from the largest denomination to the smallest.
+        private void fromLargestToSmallestWithdrawMoney(int amountForWithdraw)
         {
+            int i = 0;
             while (amountForWithdraw != 0)
             {
-                if (amountForWithdraw >= 100)
+                if (amountForWithdraw >= nominals[i])
                 {
-                    amountForWithdraw -= 100;
-                    resultFromWithdraw[100] += 1;
-                }
-                else if (amountForWithdraw >= 50)
-                {
-                    amountForWithdraw -= 50;
-                    resultFromWithdraw[50] += 1;
-                }
-                else if (amountForWithdraw >= 20)
-                {
-                    amountForWithdraw -= 20;
-                    resultFromWithdraw[20] += 1;
+                    amountForWithdraw -= nominals[i];
+                    resultFromWithdraw[nominals[i]] += 1;
                 }
                 else
                 {
-                    amountForWithdraw -= 10;
-                    resultFromWithdraw[10] += 1;
+                    i++;
                 }
+                
             }
             this.Hide();
             WithdrawDoneForm withdrawDoneForm = new WithdrawDoneForm();
             withdrawDoneForm.ShowDialog();
         }
+
         private void textBoxAmount_TextChanged(object sender, EventArgs e)
         {
             
