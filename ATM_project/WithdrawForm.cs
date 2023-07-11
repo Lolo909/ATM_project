@@ -18,6 +18,8 @@ namespace ATM_project
 
         public static WithdrawForm withdrawFormInstance;
 
+        private static int[] nominals = { 100, 50, 20, 10 };
+
         Dictionary<int, int> resultFromWithdraw = new Dictionary<int, int>();
 
         public Dictionary<int, int> ResultFromWithdraw
@@ -66,9 +68,7 @@ namespace ATM_project
             else
             {
                 
-                int amountForWithdraw = inputAmount;
-                
-                int[] nominals = {100, 50, 20, 10};
+                int amountForWithdraw = inputAmount;                                
 
                 //TODO if there is not enough money
                 MainForm mainFormIns = MainForm.mainFormInstance;
@@ -80,36 +80,71 @@ namespace ATM_project
                         mainFormIns.AccountCardAmount[code.Key] = mainFormIns.AccountCardAmount[code.Key] - inputAmount;
                         mainFormIns.BankMoney = mainFormIns.BankMoney - inputAmount;
 
-                        int i = 0;
-                        while(i < 4)
-                        {
-                            if (amountForWithdraw >= nominals[i])
-                            {
-                                amountForWithdraw -= nominals[i];
-                                resultFromWithdraw[nominals[i]] += 1;
 
-                                if (amountForWithdraw == 0)
-                                {                                   
-                                    this.Hide();
-                                    WithdrawDoneForm withdrawDoneForm = new WithdrawDoneForm();
-                                    withdrawDoneForm.ShowDialog();
-                                }
-                               
-                            }
+                        //method 1:
+                        balancedWithdrawMoney(amountForWithdraw);
 
-                            i++;
-                            if(i == 4)
-                            {
-                                i = 0;
-                            }
-                        }
+                        //method 2:
+                        //fromLargestToSmallestWithdrawMoney(amountForWithdraw);
 
+                        
                         break;
                     }
                 }
 
 
             }
+        }
+        //Method which withdraw the amount in balanced way.
+        //i.e. You will get your sum divided by all denominations.
+        private void balancedWithdrawMoney(int amountForWithdraw)
+        {
+             int i = 0;
+            while (i < 4)
+            {
+                if (amountForWithdraw >= nominals[i])
+                {
+                    amountForWithdraw -= nominals[i];
+                    resultFromWithdraw[nominals[i]] += 1;
+
+                    if (amountForWithdraw == 0)
+                    {
+                        this.Hide();
+                        WithdrawDoneForm withdrawDoneForm = new WithdrawDoneForm();
+                        withdrawDoneForm.ShowDialog();
+                    }
+
+                }
+
+                i++;
+                if (i == 4)
+                {
+                    i = 0;
+                }
+            }
+        }
+
+        //Method which withdraw the amount in descending way.
+        //i.e. You will get your amount divided from the largest denomination to the smallest.
+        private void fromLargestToSmallestWithdrawMoney(int amountForWithdraw)
+        {
+            int i = 0;
+            while (amountForWithdraw != 0)
+            {
+                if (amountForWithdraw >= nominals[i])
+                {
+                    amountForWithdraw -= nominals[i];
+                    resultFromWithdraw[nominals[i]] += 1;
+                }
+                else
+                {
+                    i++;
+                }
+                
+            }
+            this.Hide();
+            WithdrawDoneForm withdrawDoneForm = new WithdrawDoneForm();
+            withdrawDoneForm.ShowDialog();
         }
 
         private void textBoxAmount_TextChanged(object sender, EventArgs e)
