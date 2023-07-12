@@ -37,10 +37,13 @@ namespace ATM_project
             this.Text = "ATM";
             this.BackColor = Color.FromArgb(200, 200, 200);
 
-            resultFromWithdraw.Add(100,0);
-            resultFromWithdraw.Add(50,0);
-            resultFromWithdraw.Add(20,0);
-            resultFromWithdraw.Add(10,0);
+            //foreach(int nominal in nominals)
+            //{
+            //    resultFromWithdraw.Add(nominal, 0);
+            //}
+
+            resultFromWithdraw = nominals.ToDictionary(item => item, item => 0);
+           
         }
 
         private void button_go_back_Click(object sender, EventArgs e)
@@ -87,7 +90,11 @@ namespace ATM_project
                         //method 2:
                         //fromLargestToSmallestWithdrawMoney(amountForWithdraw);
 
-                        
+                        this.Hide();
+                        WithdrawDoneForm withdrawDoneForm = new WithdrawDoneForm();
+                        withdrawDoneForm.ShowDialog();
+
+
                         break;
                     }
                 }
@@ -96,8 +103,8 @@ namespace ATM_project
             }
         }
         //Method which withdraw the amount in balanced way.
-        //i.e. You will get your sum divided by all denominations.
-        private void balancedWithdrawMoney(int amountForWithdraw)
+        //i.e. You will get your amount divided by all denominations.
+        public void balancedWithdrawMoney(int amountForWithdraw)
         {
              int i = 0;
             while (i < 4)
@@ -109,9 +116,7 @@ namespace ATM_project
 
                     if (amountForWithdraw == 0)
                     {
-                        this.Hide();
-                        WithdrawDoneForm withdrawDoneForm = new WithdrawDoneForm();
-                        withdrawDoneForm.ShowDialog();
+                        break;
                     }
 
                 }
@@ -126,7 +131,7 @@ namespace ATM_project
 
         //Method which withdraw the amount in descending way.
         //i.e. You will get your amount divided from the largest denomination to the smallest.
-        private void fromLargestToSmallestWithdrawMoney(int amountForWithdraw)
+        public void fromLargestToSmallestWithdrawMoney(int amountForWithdraw)
         {
             int i = 0;
             while (amountForWithdraw != 0)
@@ -142,9 +147,7 @@ namespace ATM_project
                 }
                 
             }
-            this.Hide();
-            WithdrawDoneForm withdrawDoneForm = new WithdrawDoneForm();
-            withdrawDoneForm.ShowDialog();
+            
         }
 
         private void textBoxAmount_TextChanged(object sender, EventArgs e)
