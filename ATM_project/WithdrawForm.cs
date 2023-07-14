@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Security.Principal;
@@ -80,8 +81,18 @@ namespace ATM_project
                 {
                     if (code.Key.Equals(mainFormIns.CodeCard))
                     {
-                        mainFormIns.AccountCardAmount[code.Key] = mainFormIns.AccountCardAmount[code.Key] - inputAmount;
-                        mainFormIns.BankMoney = mainFormIns.BankMoney - inputAmount;
+                        mainFormIns.AccountCardAmount[code.Key] -= inputAmount;
+                        mainFormIns.BankMoney -= inputAmount;
+
+                        mainFormIns.conn.Open();
+
+                        string query = "UPDATE cardtable SET Amount = " + mainFormIns.AccountCardAmount[code.Key] + " WHERE Code='"+code.Key+"'; "
+                            + "UPDATE bank SET BankMoney = " + mainFormIns.BankMoney + " WHERE Id=1;";
+                        SqlCommand cmd = new SqlCommand(query, mainFormIns.conn);
+                        cmd.ExecuteNonQuery();
+
+                        //MessageBox.Show("Data succesfully updated!");
+                        mainFormIns.conn.Close();
 
 
                         //method 1:
@@ -106,6 +117,7 @@ namespace ATM_project
         //i.e. You will get your amount divided by all denominations.
         public void balancedWithdrawMoney(int amountForWithdraw)
         {
+
              int i = 0;
             while (i < 4)
             {
