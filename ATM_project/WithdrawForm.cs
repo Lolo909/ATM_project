@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,8 @@ namespace ATM_project
     {
 
         public static WithdrawForm withdrawFormInstance;
+
+       
 
         private static int[] nominals = { 100, 50, 20, 10 };
 
@@ -37,11 +40,6 @@ namespace ATM_project
             pictureBox1.BackColor = Color.Transparent;
             this.Text = "ATM";
             this.BackColor = Color.FromArgb(200, 200, 200);
-
-            //foreach(int nominal in nominals)
-            //{
-            //    resultFromWithdraw.Add(nominal, 0);
-            //}
 
             resultFromWithdraw = nominals.ToDictionary(item => item, item => 0);
            
@@ -86,12 +84,23 @@ namespace ATM_project
 
                         mainFormIns.conn.Open();
 
-                        string query = "UPDATE cardtable SET Amount = " + mainFormIns.AccountCardAmount[code.Key] + " WHERE Code='"+code.Key+"'; "
-                            + "UPDATE bank SET BankMoney = " + mainFormIns.BankMoney + " WHERE Id=1;";
-                        SqlCommand cmd = new SqlCommand(query, mainFormIns.conn);
-                        cmd.ExecuteNonQuery();
-
-                        //MessageBox.Show("Data succesfully updated!");
+                        try{
+                            UpdateDBMoney(mainFormIns, code);
+                        }
+                        catch(Exception ex) {
+                            this.Hide();
+                            MainForm mainForm = MainForm.mainFormInstance;
+                            mainForm.label_message.Text = "There is problem with the database.\n" +
+                                "Please, try again later.";
+                            mainForm.textBoxCODE.Clear();
+                            mainForm.textBoxPIN.Clear();
+                            mainForm.label_message.Visible = true;
+                            mainForm.AccountCardAmount.Clear();
+                            mainForm.AccountCardINFO.Clear();
+                            mainForm.conn.Close();
+                            mainForm.ShowDialog();
+                        }
+                        
                         mainFormIns.conn.Close();
 
 
@@ -160,6 +169,35 @@ namespace ATM_project
                 
             }
             
+        }
+
+        private void UpdateDBMoney(MainForm mainFormIns, KeyValuePair<string, decimal> code)
+        {
+            SqlTransaction objTrans = null;
+
+            using (mainFormIns.conn)
+            {
+                objTrans = mainFormIns.conn.BeginTransaction();
+                string queryUpdateCardtable = "UPDATE cardtable SET Amount = " + mainFormIns.AccountCardAmount[code.Key] + " WHERE Code='" + code.Key + "';";
+                string queryUpdateBank = "UPDATE bank SET BankMoney =; " + mainFormIns.BankMoney + " WHERE Id=1;";
+                SqlCommand cmdCardtable = new SqlCommand(queryUpdateCardtable, mainFormIns.conn);
+                SqlCommand cmdBank = new SqlCommand(queryUpdateBank, mainFormIns.conn);
+
+                try
+                {
+                    cmdCardtable.ExecuteNonQuery();
+                    cmdBank.ExecuteNonQuery();
+                    objTrans.Commit();
+                }
+                catch(Exception ex)
+                {
+                    objTrans.Rollback();
+                   throw new Exception();
+                                   
+                }               
+
+            }
+           
         }
 
         private void textBoxAmount_TextChanged(object sender, EventArgs e)
