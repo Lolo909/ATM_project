@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +19,8 @@ namespace ATM_project
     {
 
         public static WithdrawForm withdrawFormInstance;
+
+       
 
         private static int[] nominals = { 100, 50, 20, 10 };
 
@@ -36,11 +40,6 @@ namespace ATM_project
             pictureBox1.BackColor = Color.Transparent;
             this.Text = "ATM";
             this.BackColor = Color.FromArgb(200, 200, 200);
-
-            //foreach(int nominal in nominals)
-            //{
-            //    resultFromWithdraw.Add(nominal, 0);
-            //}
 
             resultFromWithdraw = nominals.ToDictionary(item => item, item => 0);
            
@@ -80,8 +79,29 @@ namespace ATM_project
                 {
                     if (code.Key.Equals(mainFormIns.CodeCard))
                     {
-                        mainFormIns.AccountCardAmount[code.Key] = mainFormIns.AccountCardAmount[code.Key] - inputAmount;
-                        mainFormIns.BankMoney = mainFormIns.BankMoney - inputAmount;
+                        mainFormIns.AccountCardAmount[code.Key] -= inputAmount;
+                        mainFormIns.BankMoney -= inputAmount;
+
+                        mainFormIns.conn.Open();
+
+                        try{
+                            UpdateDBMoney(mainFormIns, code);
+                        }
+                        catch(Exception ex) {
+                            this.Hide();
+                            MainForm mainForm = MainForm.mainFormInstance;
+                            mainForm.label_message.Text = "There is problem with the database.\n" +
+                                "Please, try again later.";
+                            mainForm.textBoxCODE.Clear();
+                            mainForm.textBoxPIN.Clear();
+                            mainForm.label_message.Visible = true;
+                            mainForm.AccountCardAmount.Clear();
+                            mainForm.AccountCardINFO.Clear();
+                            mainForm.conn.Close();
+                            mainForm.ShowDialog();
+                        }
+                        
+                        mainFormIns.conn.Close();
 
 
                         //method 1:
@@ -106,6 +126,7 @@ namespace ATM_project
         //i.e. You will get your amount divided by all denominations.
         public void balancedWithdrawMoney(int amountForWithdraw)
         {
+
              int i = 0;
             while (i < 4)
             {
@@ -148,6 +169,35 @@ namespace ATM_project
                 
             }
             
+        }
+
+        private void UpdateDBMoney(MainForm mainFormIns, KeyValuePair<string, decimal> code)
+        {
+            SqlTransaction objTrans = null;
+
+            using (mainFormIns.conn)
+            {
+                objTrans = mainFormIns.conn.BeginTransaction();
+                string queryUpdateCardtable = "UPDATE cardtable SET Amount = " + mainFormIns.AccountCardAmount[code.Key] + " WHERE Code='" + code.Key + "';";
+                string queryUpdateBank = "UPDATE bank SET BankMoney =; " + mainFormIns.BankMoney + " WHERE Id=1;";
+                SqlCommand cmdCardtable = new SqlCommand(queryUpdateCardtable, mainFormIns.conn);
+                SqlCommand cmdBank = new SqlCommand(queryUpdateBank, mainFormIns.conn);
+
+                try
+                {
+                    cmdCardtable.ExecuteNonQuery();
+                    cmdBank.ExecuteNonQuery();
+                    objTrans.Commit();
+                }
+                catch(Exception ex)
+                {
+                    objTrans.Rollback();
+                   throw new Exception();
+                                   
+                }               
+
+            }
+           
         }
 
         private void textBoxAmount_TextChanged(object sender, EventArgs e)

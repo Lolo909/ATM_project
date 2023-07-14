@@ -100,7 +100,7 @@
             // 
             label1.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point);
             label1.ForeColor = Color.Black;
-            label1.Location = new Point(422, 139);
+            label1.Location = new Point(422, 167);
             label1.Name = "label1";
             label1.Size = new Size(107, 51);
             label1.TabIndex = 8;
@@ -119,7 +119,7 @@
             // textBoxCODE
             // 
             textBoxCODE.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxCODE.Location = new Point(525, 147);
+            textBoxCODE.Location = new Point(525, 175);
             textBoxCODE.MaxLength = 4;
             textBoxCODE.Name = "textBoxCODE";
             textBoxCODE.Size = new Size(193, 43);
@@ -157,9 +157,9 @@
             label_message.BorderStyle = BorderStyle.FixedSingle;
             label_message.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
             label_message.ForeColor = Color.Red;
-            label_message.Location = new Point(489, 31);
+            label_message.Location = new Point(489, 25);
             label_message.Name = "label_message";
-            label_message.Size = new Size(271, 84);
+            label_message.Size = new Size(271, 114);
             label_message.TabIndex = 13;
             label_message.Text = "message";
             label_message.TextAlign = ContentAlignment.MiddleCenter;
@@ -199,9 +199,9 @@
         private Panel frame3_of_ATM;
         private Label label1;
         private Label label2;
-        private TextBox textBoxCODE;
-        private TextBox textBoxPIN;
         private Button buttonEnter;
-        private Label label_message;
+        public Label label_message;
+        public TextBox textBoxCODE;
+        public TextBox textBoxPIN;
     }
 }
