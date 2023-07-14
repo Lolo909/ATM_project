@@ -179,9 +179,11 @@ namespace ATM_project
             {
                 objTrans = mainFormIns.conn.BeginTransaction();
                 string queryUpdateCardtable = "UPDATE cardtable SET Amount = " + mainFormIns.AccountCardAmount[code.Key] + " WHERE Code='" + code.Key + "';";
-                string queryUpdateBank = "UPDATE bank SET BankMoney =; " + mainFormIns.BankMoney + " WHERE Id=1;";
+                string queryUpdateBank = "UPDATE bank SET BankMoney = " + mainFormIns.BankMoney + " WHERE Id=1;";
                 SqlCommand cmdCardtable = new SqlCommand(queryUpdateCardtable, mainFormIns.conn);
+                cmdCardtable.Transaction = objTrans;
                 SqlCommand cmdBank = new SqlCommand(queryUpdateBank, mainFormIns.conn);
+                cmdBank.Transaction = objTrans;
 
                 try
                 {
